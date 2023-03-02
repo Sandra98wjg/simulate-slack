@@ -1,0 +1,29 @@
+/* login and register*/
+#login-page{
+    margin-top: 80px;
+
+}
+.email{
+    margin-left: 30px;
+}
+.input-box{
+    border-radius: 5px;
+    width: 30%;
+    margin: 10px 0 40px 0;
+}
+.btn-primary{
+    margin: 0 10px;
+}
+
+.name{
+    margin-left: 30px;
+}
+#alert-error{
+    border: 2px solid black;
+    width: 300px;
+    margin: 40px auto;
+}
+
+#register-page{
+    margin-top: 80px;
+}

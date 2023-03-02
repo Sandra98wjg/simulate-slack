@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Slackr</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- You can add your styles and scripts here -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" media="screen" href="styles/provided.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="styles/login_register.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="styles/channels.css" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+  <script type="module" src="src/helpers.js"></script>
+</head>
+
+<body>
+  <!-- This is an example app structure, you can modify this as much as you choose -->
+  <header class="banner">
+    <h1>Slackr</h1>
+  </header>
+  <main role="main">
+    <!-- app goes here -->
+    <!-- Login part -->
+    <div id="login-page">
+      <span class="email">Email:</span>
+      <input type="text" placeholder="Please enter your email" class="input-box" id="login-email" /> <br>
+      <span>Password:</span>
+      <input type="password" placeholder="Please enter your password" class="input-box" id="login-password" /><br>
+      <!-- this button's code was copy from bootstrap--https://getbootstrap.com/docs/5.2/components/buttons/ -->
+      <button type="button" class="btn btn-primary" id="login-submit">Submit</button>
+      <button type="button" class="btn btn-primary" id="login-register">Register</button>
+    </div>
+
+    <!-- Register part -->
+    <div id="register-page">
+      <span class="email">Email:</span>
+      <input type="text" placeholder="Please enter your email" class="input-box" id="register-email" /> <br>
+      <span class="name">Name:</span>
+      <input type="text" placeholder="Please enter your name" class="input-box" id="register-name" /> <br>
+      <span>Password:</span>
+      <input type="password" placeholder="Please enter your password" class="input-box" id="register-password1" /><br>
+      <span>Password:</span>
+      <input type="password" placeholder="Please enter your password again to confirm" class="input-box"
+        id="register-password2" /><br>
+      <button type="button" class="btn btn-primary" id="register-submit">Submit</button>
+    </div>
+
+    <!-- Channels page -->
+    <div id="channels-page">
+      <div class="channel-total">
+        <!-- nav bar -->
+        <div class="nav">
+          <div class="nav-channels">
+            <button class="nav-link" id="to-user-profile">User Profile</button>
+            <hr class="nav-hr" />
+            <!-- this is a BootStrap style https://getbootstrap.com/docs/5.2/components/navs-tabs/ -->
+            <div id="channel-nav">
+              <button class="nav-link" id="add-channel-btn">Add channels</button>
+              <div id="public-channel-nav">
+                <div class="public-private-nav">Public Channel</div>
+              </div>
+              <div id="private-channel-nav">
+                <div class="public-private-nav">Private Channel</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content part -->
+        <div class="channel-content">
+          <!-- if didn't click any button -->
+          <div id="channel-welcome-part">
+            Welcome! Click channel to start.
+          </div>
+          <!-- click the add channels button -->
+          <div id="create-channel-part">
+            <span class="channel-name">Channel name:</span>
+            <input type="text" placeholder="Please enter the channel name" class="input-box" id="new-channel-name" />
+            <br>
+            <span class="channel-desciption">Description (optional):</span>
+            <input type="text" placeholder="Description for this channel" class="input-box"
+              id="new-channel-description" /> <br>
+            <input type="checkbox" id="new-channel-private"> Private channel<br>
+            <button type="button" class="btn btn-primary" id="new-channel-submit-btn">Submit</button>
+          </div>
+          <!-- if user is not a member of this channel -->
+          <div id="join-channel-part">
+            <h2>You are not a member of this channel.</h2>
+            <button type="button" class="btn btn-primary" id="join-channel-btn">Join this channel</button>
+          </div>
+          <!-- edit channel information part -->
+          <div id="edit-channel-part">
+            <span class="channel-name">Channel name:</span>
+            <input type="text" class="input-box" id="edit-channel-name" /> <br>
+            <span class="channel-desciption">Description (optional):</span>
+            <input type="text" class="input-box" id="edit-channel-description" /> <br>
+            <div class="confirm-back-buttons">
+              <button type="button" class="btn btn-primary big-buttons el-button"
+                id="edit-channel-submit-btn">Submit</button>
+              <button type="button" class="btn btn-primary big-buttons el-button" onclick="backToChannel()">Back to
+                channel</button>
+            </div>
+          </div>
+          <!-- channel information part -->
+          <div id="channel-information-part">
+            <div>
+              <h5 id="channelName"></h5>
+              <hr>
+              <h5 id="channelDescription"></h5>
+              <hr>
+              <h5 id="channelPrivate"></h5>
+              <hr>
+              <h5 id="channelCreatTime"></h5>
+              <hr>
+              <h5 id="channelCreatorName"></h5>
+              <hr />
+            </div>
+            <div class="edit-leave-button">
+              <button type="button" class="btn btn-outline-success btn-sm el-button"
+                id="edit-channel-information-btn">Edit</button>
+              <button type="button" class="btn btn-outline-danger btn-sm el-button" id="leave-channel-btn">Leave
+                channel</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm el-button" id="invite-channel-btn">Inviting
+                users</button>
+              <button type="button" class="btn btn-outline-primary btn-sm el-button" id="back-channel-btn"
+                onclick="backToChannel()">Back to channel</button>
+            </div>
+          </div>
+          <!-- click a channel button -->
+          <div id="single-channel-part">
+            <div id="channel-header">
+              <h3 id="single-channel-name">
+                <!-- channel name -->
+              </h3>
+              <button type="button" id="channel-information-btn">Channel Information</button>
+              <!-- this part of code is from https://getbootstrap.com/docs/5.2/components/offcanvas/ -->
+              <button type="button" id="channel-pinned-message" data-bs-toggle="offcanvas" href="#offcanvasExample"
+                role="button" aria-controls="offcanvasExample">Pinned Message</button>
+              <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasExampleLabel">Pinning messages</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body" id="pinned-messages-total">
+                  <div id="pinned">
+                    Some text as placeholder. In real life you can have the elements you have chosen. Like, text,
+                    images, lists, etc.
+                  </div>
+                </div>
+              </div>
+              <hr />
+            </div>
+            <div id="channel-message-part">
+              <p>&#128512; &#128516; &#128525; &#128151;</p>
+              <!-- single message -->
+              <div class="single-messages">
+                <div class="single-messages-avatar">
+                  <img
+                    src="https://media.istockphoto.com/vectors/user-icon-flat-isolated-on-white-background-user-symbol-vector-vector-id1300845620?k=20&m=1300845620&s=612x612&w=0&h=f4XTZDAv7NPuZbG0habSpU0sNgECM0X7nbKzTUta3n8="
+                    class="user-avatar">
+                </div>
+                <div>
+                  <h6 class="name-time">Name<span class="name-time-span">time</span></h6>
+                  <p class="single-messages-text">information</p>
+                </div>
+              </div>
+              <!-- single message-->
+            </div>
+            <div id="channel-send-message-part">
+              <hr />
+              <div class="input-group mb-3" id="send-message-total">
+                <select id="choose-message-type">
+                  <option>Text</option>
+                  <option>Image</option>
+                </select>
+                <input type="file" id="send-message-image" />
+                <textarea id="send-message-text" class="form-control"></textarea>
+                <button class="btn btn-outline-primary" type="button" id="send-message-btn" disabled>Send</button>
+              </div>
+            </div>
+          </div>
+          <!-- invite users page -->
+          <div id="invite-channel-part">
+            <h4 id="invite-channel-head">Inviting users to a channel</h4>
+            <div id="invite-channel-users"></div>
+            <div class="edit-leave-button">
+              <button type="button" class="btn btn-primary big-buttons el-button"
+                id="invite-channel-submit-btn">Submit</button>
+              <button type="button" class="btn btn-primary big-buttons el-button" onclick="backToChannel()">Back to
+                channel</button>
+            </div>
+          </div>
+          <div id="user-profile-part">
+            <img id="userImg">
+            <h5 id="userName"></h5>
+            <hr>
+            <h5 id="userBio"></h5>
+            <hr>
+            <h5 id="userEmail"></h5>
+            <hr />
+            <button type="button" class="btn btn-primary big-buttons el-button" id="modify-profile-btn">Modify</button>
+            <button type="button" class="btn btn-primary big-buttons el-button" id="log-out-btn">Logout</button>
+          </div>
+          <div id="modify-proflie-part">
+            <h2>Please modify your profile here</h2>
+            <span>Image:</span>
+            <input type="file" class="input-box" id="user-new-image" /><br>
+            <!-- name, bio, email, and password  -->
+            <span>Name:</span>
+            <input type="text" placeholder="Please enter your new name" class="input-box" id="user-new-name" /> <br>
+            <span>Bio:</span>
+            <input type="text" placeholder="Please enter your new bio" class="input-box" id="user-new-bio" /> <br>
+            <span>Email:</span>
+            <input type="text" placeholder="Please enter your new email" class="input-box" id="user-new-email" /> <br>
+            <span>Password:</span>
+            <input type="password" placeholder="Please enter your new password" class="input-box"
+              id="user-new-password" /> <br>
+            <button type="button" class="btn btn-primary" id="new-profile-submit-btn">Submit</button>
+          </div>
+          <!-- this part of code was from https://getbootstrap.com/docs/5.2/components/modal/ -->
+          <!-- Modal -->
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    id="thumbnails-close"></button>
+                </div>
+                <div class="modal-body total-thumbnails" id="thumbnails">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+  </main>
+  <footer class="fixed-bottom">
+    <p>&copy; Slackr</p>
+  </footer>
+  <script type="module" src="src/main.js"></script>
+  <script type="module" src="src/config.js"></script>
+  <script src="src/loginRegister.js"></script>
+  <script src="src/channels.js"></script>
+  <script src="src/profile.js"></script>
+  <script src="src/invite.js"></script>
+  <script src="src/emoji.js"></script>
+  <script src="src/pinDelete.js"></script>
+  <script src="src/editMessage.js"></script>
+  <script src="src/sendMessage.js"></script>
+  <script src="src/message.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+/* body header and footer */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+    height: 100%;
+    font-family: -apple-system, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    /* background-color: #8188d8; */
+    background-image: linear-gradient(white, #8188d8);
+}
+
+body {
+    position: relative;
+}
+
+.banner {
+    box-shadow: 0 5px 15px -8px grey;
+    width: 100%;
+
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 49%;
+    text-align: center;
+}
+
+/* the follow part is to control page show and hide */
+#login-page {
+    /* display: block; */
+    display: block;
+}
+
+#register-page {
+    display: none;
+}
+
+/* channel part */
+#channels-page {
+    display: none;
+}
+
+#channel-welcome-part {
+    display: none;
+}
+
+#create-channel-part {
+    display: none;
+}
+
+#single-channel-part {
+    display: none;
+}
+
+#join-channel-part {
+    display: none;
+}
+
+#channel-information-part {
+    display: none;
+}
+
+#edit-channel-part {
+    display: none;
+}
+
+#invite-channel-part {
+    display: none;
+}
+
+#user-profile-part {
+    display: none;
+}
+
+#modify-proflie-part {
+    display: none;
+}
